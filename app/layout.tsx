@@ -2,6 +2,7 @@ import ConvexClientProvider from '@/components/providers/ConvexClientProvider'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Toaster } from 'sonner'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -45,6 +46,7 @@ export default function RootLayout({
             storageKey='jotion-theme'
           >
             {children}
+            <Toaster position='bottom-center' />
           </ThemeProvider>
         </ConvexClientProvider>
       </body>
