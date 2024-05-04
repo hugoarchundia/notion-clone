@@ -1,6 +1,8 @@
 'use client'
 
+import { api } from '@/convex/_generated/api'
 import { cn } from '@/lib/utils'
+import { useQuery } from 'convex/react'
 import { ChevronLeftIcon, MenuIcon } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import React, { ElementRef, useEffect, useRef, useState } from 'react'
@@ -10,6 +12,7 @@ import UserItem from './UserItem'
 const Navigation = () => {
   const pathname = usePathname()
   const isMobile = useMediaQuery('(max-width: 760px)')
+  const documents = useQuery(api.documents.get)
 
   const isResizingRef = useRef(false)
   const sidebarRef = useRef<ElementRef<'aside'>>(null)
@@ -117,7 +120,9 @@ const Navigation = () => {
           <UserItem />
         </div>
         <div className='mt-4'>
-          <p>Documents</p>
+          {documents?.map((document) => {
+            return <p key={document._id}>{document.title}</p>
+          })}
         </div>
         <div
           className='opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0'
